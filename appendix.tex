@@ -1,0 +1,237 @@
+\section{Spherical caps and projective nets}                        \label{app:caps}
+
+This appendix records the cap estimates used in Sections
+\ref{sec:fixed} and \ref{sec:phase}.  They are included to make the dependence
+on the two asymptotic regimes explicit.
+
+\subsection{Fixed dimension}
+
+Let $C_d(\eta)=\{u\in\Sph^{d-1}:\arccos|\ip{u}{e_1}|\leq\eta\}$ be a
+projective cap.  For $0<\eta<\pi/2$, normalized surface measure gives
+\begin{equation}
+ \mu_d(C_d(\eta))
+ =\frac{2\int_0^\eta\sin^{d-2}\theta\,d\theta}
+        {\int_0^\pi\sin^{d-2}\theta\,d\theta}.                    \label{eq:projective-cap}
+\end{equation}
+For fixed $d$, $\sin\theta\leq\theta$ yields
+\[
+ \mu_d(C_d(\eta))\leq c_d\eta^{d-1}.
+\]
+The reverse inequality with another constant holds for
+$0<\eta\leq\eta_d$, since $\sin\theta\geq2\theta/\pi$ on
+$[0,\pi/2]$.
+
+Take a maximal set of projective points separated by more than $\eta$.
+Maximality makes it an $\eta$-net.  Its projective caps of radius $\eta/2$
+are disjoint.  The lower cap-volume estimate therefore bounds its cardinality
+by $a_d\eta^{-(d-1)}$.  This proves both assertions in
+Equation \eqref{eq:caps-fixed}.
+
+\subsection{High-dimensional cap exponent}
+
+For $U$ uniform on $\Sph^{d-1}$, the first coordinate has density
+\begin{equation}
+ f_d(t)=c_d(1-t^2)^{(d-3)/2},\qquad
+ c_d=\frac{\Gamma(d/2)}{\sqrt\pi\,\Gamma((d-1)/2)}.                \label{eq:coord-density}
+\end{equation}
+Stirling's formula gives $\log c_d=o(d)$.  For fixed $m\in(0,1)$,
+\[
+ p_d(m)=\int_m^1 f_d(t)\,dt
+ \leq c_d(1-m)(1-m^2)^{(d-3)/2}.
+\]
+This proves
+\[
+ \limsup_{d\to\infty}\frac1d\log p_d(m)
+ \leq\tfrac12\log(1-m^2).
+\]
+For every fixed $\epsilon\in(0,1-m)$,
+\[
+ p_d(m)\geq
+ \epsilon c_d\big(1-(m+\epsilon)^2\big)^{(d-3)/2}.
+\]
+First let $d\to\infty$, then let $\epsilon\downarrow0$.  This gives the
+matching lower limit and proves Equation \eqref{eq:cap-ldp}.
+
+For completeness, we spell out why the covering theorem supplies the same
+exponent.  A cap $\{u:\ip{u}{v}\geq m\}$ has acute angular radius
+$\phi=\arccos m$.  It can be represented as the intersection of a sphere of
+radius $r=1/\sin\phi>1$ with a unit Euclidean ball.  Theorem 1 of
+\citet{dumer2007covering}, with sphere dimension $d-1$, gives a cover whose
+density is at most $O(d\log d)$, uniformly over $r>1$.  Dividing this density
+by the normalized cap area $p_d(m)$ bounds the number of caps by
+\[
+ \frac{O(d\log d)}{p_d(m)}=\exp(dI(m)+o(d)).
+\]
+
+\section{Details for the nonadaptive lower bounds}                 \label{app:lower}
+
+We verify the simplex normalizations and the move order used in Lemma
+\ref{lem:simplex}.
+
+\subsection{Regular-simplex normalization}
+
+Let $z_0,\ldots,z_d\in\R^d$ obey
+\[
+ \ip{z_i}{z_i}=\frac{d}{d+1},\qquad
+ \ip{z_i}{z_j}=-\frac1{d+1}\quad(i\neq j).
+\]
+These are centered regular-simplex vertices with side length $\sqrt2$ and
+circumradius $\sqrt{d/(d+1)}$.  Multiplying each vertex by $\sqrt2\delta$
+gives side $2\delta$ and circumradius
+\[
+ \sqrt2\delta\sqrt{\frac d{d+1}}=J_d\delta.
+\]
+After rotation and scaling by $1/m$, the circumradius is $J_d\delta/m$.
+
+For any finite vertex set $K$ and direction $v$,
+\[
+ \width_K(v)=\max_{x,y\in K}\ip{v}{x-y}.
+\]
+Every difference of two regular-simplex vertices is an edge vector.  Thus the
+edge-correlation condition in Lemma \ref{lem:simplex} implies
+$\width_{m^{-1}R\Delta}(v)\leq2\delta$.
+
+\subsection{One transcript and one secret}
+
+Fix a deterministic nonadaptive algorithm.  Its complete query set $V$ is a
+known function of the algorithm, independent of the secret and answers.  The
+rotation in Lemma \ref{lem:simplex}, the scaled simplex $K$, the midpoint
+answers, and the algorithm's output on those answers can therefore all be
+determined before the interaction begins.  Choose a farthest vertex
+\[
+ x^\star\in\arg\max_{x\in K}\|x-A(r)\|_2.
+\]
+The midpoint construction ensures
+$|r_v-\ip{v}{x^\star}|\leq\delta$ for every query.  Hence this is a legal
+choice of one secret at the start of the game, not a post hoc switch between
+secrets.  Since the minimum enclosing ball of a regular simplex is its
+circumsphere,
+\[
+ \|x^\star-A(r)\|_2\geq\rad(K)=\frac{J_d\delta}{m}.
+\]
+
+\subsection{Why random rotation is enough}
+
+Let $E$ be the set of $N_d=\binom{d+1}{2}$ unoriented unit edge directions of
+a reference simplex.  If $R$ is Haar uniform on the orthogonal group, then for
+each fixed $e\in E$, $Re$ is uniform on the sphere.  The different rotated
+edges are dependent, but both lower bounds use only the union bound.  In fixed
+dimension,
+\[
+ \Pr\{\rho(Re,v_i)<\eta\text{ for some }e,i\}
+ \leq N_dT\mu_d(C_d(\eta)).
+\]
+In the exponential-dimensional regime,
+\[
+ \Pr\{|\ip{Re}{v_i}|>m\text{ for some }e,i\}
+ \leq2N_dTp_d(m).
+\]
+Whenever the displayed upper bound is below one, at least one deterministic
+rotation has the required simultaneous avoidance property.
+
+\section{Batch refinement details}                                 \label{app:batch}
+
+We give a more explicit derivation of Theorem \ref{thm:batch} from the robust
+Jung machinery of \citet{filmus2026optimal}.  Their proof uses noise
+$\delta=1/2$, so queried slabs have width one.  Write
+\[
+ \eta_M=a_dM^{-1/(d-1)},\qquad
+ \beta_M=\frac1{\cos\eta_M}-1=O_d(M^{-2/(d-1)}).
+\]
+After querying the first-batch net, every feasible region $\Phi_0$ has
+$\diam(\Phi_0)\leq1+\beta_M$.
+
+The robust Jung theorem in the witness-core form states that, whenever
+$\beta_M$ is below a dimension-dependent threshold and the feasible radius has
+not already dropped below the Jung benchmark, there is a regular unit simplex
+$\Delta_0$ such that
+\[
+ \operatorname{Witness}(\Phi_0)
+ \subseteq\Delta_0+B(C_d\beta_M).
+\]
+The witness core has the same Chebyshev radius as the feasible region.  Put
+$\gamma_0=C_d\beta_M$.
+
+Suppose at the start of a later batch that
+\[
+ \operatorname{Witness}(\Phi_b)
+ \subseteq\Delta_b+B(\gamma_b),
+\]
+where $\Delta_b$ is a regular unit simplex.  Query all its
+$q_d=\binom{d+1}{2}$ unit edge directions in parallel.  The refinement argument
+in the proof of Main Theorem 2 of \citet{filmus2026optimal} gives
+\[
+ \diam(\operatorname{Witness}(\Phi_{b+1}))
+ \leq1+4\gamma_b^2.
+\]
+A second application of robust Jung gives another regular unit simplex and
+\[
+ \gamma_{b+1}\leq4C_d\gamma_b^2.
+\]
+For fixed $d,B$, take $M$ large enough that every iterate remains below the
+robust-Jung threshold.  Induction yields
+\[
+ \gamma_{B-1}
+ \leq C_{d,B}\beta_M^{2^{B-1}}
+ \leq C'_{d,B}M^{-2^B/(d-1)}.
+\]
+The radius of $\Delta_{B-1}+B(\gamma_{B-1})$ is at most its simplex
+circumradius plus $\gamma_{B-1}$.  This proves the normalized result.  General
+$\delta$ follows by scaling.
+
+If the radius ever drops below the Jung benchmark during the argument, the
+desired upper bound is already true after enlarging $C_{d,B}$.  Thus the stated
+case distinction in the robust theorem causes no gap.
+
+\section{Endpoint consequences of the phase curve}                 \label{app:endpoints}
+
+Theorem \ref{thm:phase} is deliberately stated for a fixed
+$\alpha\in(0,\infty)$, where all cap estimates are uniform after fixing a small
+margin around $m_\alpha$.  Two endpoint consequences follow without a uniform
+large-deviation claim.
+
+First, if $\log T/d\to\infty$, fix any $m<1$.  Lemma
+\ref{lem:cover-exp} shows that the sphere can eventually be covered using at
+most $T$ caps of threshold $m$.  Proposition \ref{prop:upper} gives
+\[
+ \limsup_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta}
+ \leq\frac{\sqrt2}{m}.
+\]
+Let $m\uparrow1$.  The universal Jung lower limit from
+\citet{filmus2026optimal} gives equality with $\sqrt2$.
+
+Second, if $\log T=o(d)$, nonadaptive strategies are a subset of adaptive
+strategies.  The subexponential lower bound of \citet{filmus2026optimal}
+therefore implies
+\[
+ \OPT^{\na}_d(T,\delta)-J_d\delta\longrightarrow\infty.
+\]
+The limiting curve in Theorem \ref{thm:phase} is consistent with both
+endpoints.
+
+\section{Computational sanity checks}                               \label{app:checks}
+
+The file \texttt{verify\_geometry.py} performs two independent diagnostics.
+
+First, for $d\in\{2,3,5\}$ it constructs centered regular-simplex coordinates,
+draws a fixed nonadaptive query set, searches over seeded random rotations, and
+chooses the rotation with the smallest maximum edge-query correlation $m$.  It
+then expands the simplex by $1/m$, forms every midpoint response, and checks
+\[
+ \max_i\width_K(v_i)\leq2\delta,
+ \qquad
+ \max_{x\in K,i}|\ip{v_i}{x}-r_i|\leq\delta,
+ \qquad
+ \rad(K)=\frac{J_d\delta}{m}.
+\]
+All inequalities pass to floating-point tolerance $10^{-10}$.
+
+Second, it evaluates the exact two-sided cap tail using
+$U_1^2\sim\operatorname{Beta}(1/2,(d-1)/2)$.  For several values of $\alpha$
+and $d\leq500$, it solves for the finite-dimensional correlation whose cap
+probability is $e^{-\alpha d}$ and compares it with
+$\sqrt{1-e^{-2\alpha}}$.  The absolute discrepancy decreases monotonically in
+every tested sequence.  The generated CSV files contain the raw values.
+
+These checks are not invoked in any proof.  They guard the edge-length,
+noise-width, and beta-tail normalizations that are easiest to misstate.
