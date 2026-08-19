@@ -41,85 +41,33 @@
 \maketitle
 
 \begin{abstract}
-An unknown point $x^\star\in\R^d$ is queried through unit linear functionals,
-each answered with adversarial additive error at most $\delta$.  Recent work
-determined the adaptive minimax error.  Its excess above the infinite-query
-Jung limit $J_d\delta=\sqrt{2d/(d+1)}\,\delta$ vanishes doubly exponentially in
-the number of queries, and it left the nonadaptive game open.  We characterize
-that game.  For every fixed $d\geq2$, its minimax excess is
-$\Theta_d(\delta T^{-2/(d-1)})$.  Thus adaptivity changes the convergence law
-from polynomial to doubly exponential.  We also resolve the previously open
-exponential-budget regime in high dimension.  If
-$\log T/d\to\alpha\in(0,\infty)$, then the nonadaptive minimax error satisfies
-\[
- \frac{\OPT^{\na}_d(T,\delta)}{\delta}
- \longrightarrow \sqrt{\frac{2}{1-e^{-2\alpha}}}.
-\]
-The upper bounds combine spherical coverings with Jung's theorem.  The lower
-bounds use a common transcript that hides every vertex of a suitably rotated
-and expanded regular simplex.  This construction is what makes classical
-spherical-cap geometry sharp for point reconstruction.  Finally, a batched
-strategy shows that each additional adaptive batch can double the polynomial
-exponent, interpolating between the two convergence laws.
+An unknown point $x^\star\in\R^d$ is queried through unit linear functionals, each answered with adversarial additive error at most $\delta$.  Recent work determined the adaptive minimax error.  Its excess above the infinite-query Jung limit $J_d\delta=\sqrt{2d/(d+1)}\,\delta$ vanishes doubly exponentially in the number of queries, and it left the nonadaptive game open.  We characterize that game.  For every fixed $d\geq2$, its minimax excess is $\Theta_d(\delta T^{-2/(d-1)})$.  Thus adaptivity changes the convergence law from polynomial to doubly exponential.  We also resolve the previously open exponential-budget regime in high dimension.  If $\log T/d\to\alpha\in(0,\infty)$, then the nonadaptive minimax error satisfies \[ \frac{\OPT^{\na}_d(T,\delta)}{\delta} \longrightarrow \sqrt{\frac{2}{1-e^{-2\alpha}}}. \] The upper bounds combine spherical coverings with Jung's theorem.  The lower bounds use a common transcript that hides every vertex of a suitably rotated and expanded regular simplex.  This construction is what makes classical spherical-cap geometry sharp for point reconstruction.  Finally, a batched strategy shows that each additional adaptive batch can double the polynomial exponent, interpolating between the two convergence laws.
 \end{abstract}
 
 \section{Introduction}
 
-Consider the following adversarial sensing problem.  A reconstructor seeks an
-unknown $x^\star\in\R^d$.  On query $v\in\Sph^{d-1}$, it receives $r\in\R$
-such that
+Consider the following adversarial sensing problem.  A reconstructor seeks an unknown $x^\star\in\R^d$.  On query $v\in\Sph^{d-1}$, it receives $r\in\R$ such that
 \begin{equation}
     |r-\ip{v}{x^\star}|\leq\delta.                 \label{eq:model}
 \end{equation}
-After $T$ queries it outputs $\widehat x$ and incurs Euclidean error
-$\|\widehat x-x^\star\|_2$.  The noise is bounded but otherwise adversarial.
-This model isolates a basic question in adaptive sensing, robust localization,
-and reconstruction from privacy-perturbed linear statistics
-\citep{haupt2009adaptive,ariascatro2013fundamental,dinur2003revealing}.
+After $T$ queries it outputs $\widehat x$ and incurs Euclidean error $\|\widehat x-x^\star\|_2$.  The noise is bounded but otherwise adversarial. This model isolates a basic question in adaptive sensing, robust localization, and reconstruction from privacy-perturbed linear statistics \citep{haupt2009adaptive,ariascatro2013fundamental,dinur2003revealing}.
 
-\citet{filmus2026optimal} recently characterized the adaptive game.  With
-$J_d=\sqrt{2d/(d+1)}$, its infinite-query error is $J_d\delta$.  For fixed
-$d\geq2$, the excess above this limit is
-$2^{-2^{\Theta_d(T)}}\delta$.  The mechanism has two phases.  An oblivious
-spherical net first bounds the feasible diameter.  Later queries follow the
-edges of a near-extremal simplex identified from previous answers.  Their paper
-ends by asking what happens when every direction must be chosen before any
-answer is observed.
+\citet{filmus2026optimal} recently characterized the adaptive game.  With $J_d=\sqrt{2d/(d+1)}$, its infinite-query error is $J_d\delta$.  For fixed $d\geq2$, the excess above this limit is $2^{-2^{\Theta_d(T)}}\delta$.  The mechanism has two phases.  An oblivious spherical net first bounds the feasible diameter.  Later queries follow the edges of a near-extremal simplex identified from previous answers.  Their paper ends by asking what happens when every direction must be chosen before any answer is observed.
 
-This restriction is not cosmetic.  Nonadaptive queries are the natural model
-when sensing directions must be deployed in parallel, when a fixed query batch
-is audited before release, or when interaction is unavailable.  Classical
-information-based complexity compares adaptive and nonadaptive recovery at a
-coarse multiplicative scale.  For convex symmetric noisy information graphs,
-the two errors differ by at most a factor of two
-\citep{osipenko2019generalized}.  That comparison cannot see their convergence
-to the same nonzero limit.  The open question is therefore an excess-risk
-question.
+This restriction is not cosmetic.  Nonadaptive queries are the natural model when sensing directions must be deployed in parallel, when a fixed query batch is audited before release, or when interaction is unavailable.  Classical information-based complexity compares adaptive and nonadaptive recovery at a coarse multiplicative scale.  For convex symmetric noisy information graphs, the two errors differ by at most a factor of two \citep{osipenko2019generalized}.  That comparison cannot see their convergence to the same nonzero limit.  The open question is therefore an excess-risk question.
 
 \paragraph{Our results.}
-We determine the nonadaptive excess in fixed dimension and its exact
-high-dimensional phase curve.
+We determine the nonadaptive excess in fixed dimension and its exact high-dimensional phase curve.
 
 \begin{theorem}[Fixed-dimensional nonadaptive rate]                 \label{thm:fixed}
-For every fixed $d\geq2$, there are constants $0<c_d<C_d<\infty$ and
-$T_d<\infty$ such that, for all $T\geq T_d$ and $\delta>0$,
-\[
- c_d\delta T^{-2/(d-1)}
- \leq \OPT^{\na}_d(T,\delta)-J_d\delta
- \leq C_d\delta T^{-2/(d-1)}.
-\]
+For every fixed $d\geq2$, there are constants $0<c_d<C_d<\infty$ and $T_d<\infty$ such that, for all $T\geq T_d$ and $\delta>0$, \[ c_d\delta T^{-2/(d-1)} \leq \OPT^{\na}_d(T,\delta)-J_d\delta \leq C_d\delta T^{-2/(d-1)}. \]
 \end{theorem}
 
-Together with the adaptive result of \citet{filmus2026optimal}, Theorem
-\ref{thm:fixed} gives a polynomial versus doubly-exponential separation in
-excess error.  Equivalently, reaching excess at most $\epsilon\delta$ requires
-$\Theta_d(\epsilon^{-(d-1)/2})$ nonadaptive queries, while adaptive query
-complexity is $\Theta_d(\log\log(1/\epsilon))$.
+Together with the adaptive result of \citet{filmus2026optimal}, Theorem \ref{thm:fixed} gives a polynomial versus doubly-exponential separation in excess error.  Equivalently, reaching excess at most $\epsilon\delta$ requires $\Theta_d(\epsilon^{-(d-1)/2})$ nonadaptive queries, while adaptive query complexity is $\Theta_d(\log\log(1/\epsilon))$.
 
 \begin{table}[t]
 \caption{Fixed-dimensional convergence.  Proper reconstructors output one
-point.  Improper reconstructors predict each future linear functional and have
-a different limiting benchmark.}
+point.  Improper reconstructors predict each future linear functional and have a different limiting benchmark.}
 \label{tab:comparison}
 \centering
 \small
@@ -134,160 +82,63 @@ Improper, adaptive & function & $\delta$ & $\Theta_d(T^{-2/(d-1)})\delta$ \\
 \end{tabular}
 \end{table}
 
-The improper polynomial rate in the last row is due to
-\citet{filmus2026optimal}.  It approaches the smaller benchmark $\delta$ with
-an output that need not correspond to any point.  Its missed-direction lower
-bound cannot prove a proper error near $J_d\delta$.  The simplex transcript in
-this paper is needed to obtain the middle row.
+The improper polynomial rate in the last row is due to \citet{filmus2026optimal}.  It approaches the smaller benchmark $\delta$ with an output that need not correspond to any point.  Its missed-direction lower bound cannot prove a proper error near $J_d\delta$.  The simplex transcript in this paper is needed to obtain the middle row.
 
-The dimension dependence contains a second sharp phenomenon.  The existing
-adaptive analysis identifies subexponential and superexponential regimes but
-does not resolve budgets $T=\exp(\Theta(d))$.  For the nonadaptive game we get
-an exact answer throughout this window.
+The dimension dependence contains a second sharp phenomenon.  The existing adaptive analysis identifies subexponential and superexponential regimes but does not resolve budgets $T=\exp(\Theta(d))$.  For the nonadaptive game we get an exact answer throughout this window.
 
 \begin{theorem}[Exponential-budget phase curve]                     \label{thm:phase}
-Let $T=T(d)$ satisfy $\log T/d\to\alpha\in(0,\infty)$.  Then for every
-$\delta>0$,
-\[
- \lim_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta}
- = \sqrt{\frac{2}{1-e^{-2\alpha}}}.
-\]
+Let $T=T(d)$ satisfy $\log T/d\to\alpha\in(0,\infty)$.  Then for every $\delta>0$, \[ \lim_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta} = \sqrt{\frac{2}{1-e^{-2\alpha}}}. \]
 \end{theorem}
 
-The curve diverges like $1/\sqrt{\alpha}$ as $\alpha\downarrow0$ and tends to
-$\sqrt2$ only as $\alpha\to\infty$.  Hence a superexponential budget is
-necessary and sufficient for vanishing nonadaptive excess as $d$ grows.
+The curve diverges like $1/\sqrt{\alpha}$ as $\alpha\downarrow0$ and tends to $\sqrt2$ only as $\alpha\to\infty$.  Hence a superexponential budget is necessary and sufficient for vanishing nonadaptive excess as $d$ grows.
 
-We also quantify how a small number of adaptive rounds improves the fixed-
-dimensional exponent.  A $B$-batch strategy chooses all queries in a batch
-before seeing any answer from that batch, while later batches can use earlier
-answers.
+We also quantify how a small number of adaptive rounds improves the fixed- dimensional exponent.  A $B$-batch strategy chooses all queries in a batch before seeing any answer from that batch, while later batches can use earlier answers.
 
 \begin{theorem}[Batch upper hierarchy]                              \label{thm:batch}
-Fix $d\geq2$ and $B\geq1$, and put $q_d=\binom{d+1}{2}$.  There are constants
-$C_{d,B},M_{d,B}<\infty$ such that, whenever
-$M=T-(B-1)q_d\geq M_{d,B}$,
-\[
- \OPT^{(B)}_d(T,\delta)-J_d\delta
- \leq C_{d,B}\delta M^{-2^B/(d-1)}.
-\]
+Fix $d\geq2$ and $B\geq1$, and put $q_d=\binom{d+1}{2}$.  There are constants $C_{d,B},M_{d,B}<\infty$ such that, whenever $M=T-(B-1)q_d\geq M_{d,B}$, \[ \OPT^{(B)}_d(T,\delta)-J_d\delta \leq C_{d,B}\delta M^{-2^B/(d-1)}. \]
 \end{theorem}
 
-The first batch is a spherical net.  Each later batch queries all edges of one
-simplex, using the robust Jung refinement of \citet{filmus2026optimal}.  We do
-not claim that Theorem \ref{thm:batch} is minimax optimal for intermediate $B$.
+The first batch is a spherical net.  Each later batch queries all edges of one simplex, using the robust Jung refinement of \citet{filmus2026optimal}.  We do not claim that Theorem \ref{thm:batch} is minimax optimal for intermediate $B$.
 
 \paragraph{Proof idea.}
-For fixed nonadaptive directions $V=\{v_1,\ldots,v_T\}$, define
-\[
- \kappa(V)=\min_{u\in\Sph^{d-1}}\max_{i\leq T}|\ip{u}{v_i}|.
-\]
-This is the inradius of $\conv(\{\pm v_i\}_{i=1}^T)$.  Every transcript has
-feasible diameter at most $2\delta/\kappa(V)$.  Jung's theorem then gives error
-at most $J_d\delta/\kappa(V)$.  Good spherical covers make $\kappa(V)$ large.
+For fixed nonadaptive directions $V=\{v_1,\ldots,v_T\}$, define \[ \kappa(V)=\min_{u\in\Sph^{d-1}}\max_{i\leq T}|\ip{u}{v_i}|. \] This is the inradius of $\conv(\{\pm v_i\}_{i=1}^T)$.  Every transcript has feasible diameter at most $2\delta/\kappa(V)$.  Jung's theorem then gives error at most $J_d\delta/\kappa(V)$.  Good spherical covers make $\kappa(V)$ large.
 
-The converse needs more than a missed direction.  A two-point ambiguity only
-gives a limiting error $\delta$, not $J_d\delta$.  Instead take a regular
-$d$-simplex of side $2\delta$.  Rotate it so that none of its
-$\binom{d+1}{2}$ edge directions is too close to any query, then expand it.
-Every queried directional width remains at most $2\delta$.  Answer each query
-with the midpoint of the extreme vertex projections.  All $d+1$ expanded
-vertices now produce one transcript, so one of them is at least the expanded
-circumradius from the estimate.  A cap union bound finds the rotation.  In
-fixed dimension it yields an avoided angle of order $T^{-1/(d-1)}$.  With
-$T=\exp(\alpha d+o(d))$, the spherical-cap large-deviation exponent yields the
-exact threshold $\sqrt{1-e^{-2\alpha}}$.
+The converse needs more than a missed direction.  A two-point ambiguity only gives a limiting error $\delta$, not $J_d\delta$.  Instead take a regular $d$-simplex of side $2\delta$.  Rotate it so that none of its $\binom{d+1}{2}$ edge directions is too close to any query, then expand it. Every queried directional width remains at most $2\delta$.  Answer each query with the midpoint of the extreme vertex projections.  All $d+1$ expanded vertices now produce one transcript, so one of them is at least the expanded circumradius from the estimate.  A cap union bound finds the rotation.  In fixed dimension it yields an avoided angle of order $T^{-1/(d-1)}$.  With $T=\exp(\alpha d+o(d))$, the spherical-cap large-deviation exponent yields the exact threshold $\sqrt{1-e^{-2\alpha}}$.
 
 \section{Model and geometric reduction}                            \label{sec:model}
 
-All strategies in this paper are deterministic, matching
-\citet{filmus2026optimal}.  A nonadaptive strategy chooses
-$v_1,\ldots,v_T\in\Sph^{d-1}$ before the game.  The adversary knows the
-strategy, chooses $x^\star$, and returns any answers obeying
-Equation \eqref{eq:model}.  The strategy then maps the transcript to an estimate.
-The minimax error is
-\[
- \OPT^{\na}_d(T,\delta)
- =\inf_{V,A}\sup_{x^\star\in\R^d}
-   \sup_{|r_i-\ip{v_i}{x^\star}|\leq\delta}
-       \|A(r_1,\ldots,r_T)-x^\star\|_2.
-\]
-The case $d=1$ is degenerate.  One query attains error $\delta$, so we assume
-$d\geq2$.  Scaling gives
-$\OPT^{\na}_d(T,\delta)=\delta\OPT^{\na}_d(T,1)$.
+All strategies in this paper are deterministic, matching \citet{filmus2026optimal}.  A nonadaptive strategy chooses $v_1,\ldots,v_T\in\Sph^{d-1}$ before the game.  The adversary knows the strategy, chooses $x^\star$, and returns any answers obeying Equation \eqref{eq:model}.  The strategy then maps the transcript to an estimate. The minimax error is \[ \OPT^{\na}_d(T,\delta) =\inf_{V,A}\sup_{x^\star\in\R^d} \sup_{|r_i-\ip{v_i}{x^\star}|\leq\delta} \|A(r_1,\ldots,r_T)-x^\star\|_2. \] The case $d=1$ is degenerate.  One query attains error $\delta$, so we assume $d\geq2$.  Scaling gives $\OPT^{\na}_d(T,\delta)=\delta\OPT^{\na}_d(T,1)$.
 
 For a transcript $r$, let
 \begin{equation}
  \Phi(V,r)=\{x\in\R^d:|\ip{v_i}{x}-r_i|\leq\delta
                     \text{ for all }i\leq T\}.                    \label{eq:feasible}
 \end{equation}
-For a bounded set $K$, let $\rad(K)=\inf_z\sup_{x\in K}\|x-z\|_2$.
-The optimal output for a fixed transcript is a Chebyshev center of its feasible
-set.  Thus the error of a design is $\sup_r\rad(\Phi(V,r))$ over nonempty
-feasible sets.
+For a bounded set $K$, let $\rad(K)=\inf_z\sup_{x\in K}\|x-z\|_2$. The optimal output for a fixed transcript is a Chebyshev center of its feasible set.  Thus the error of a design is $\sup_r\rad(\Phi(V,r))$ over nonempty feasible sets.
 
 \begin{proposition}[Covering upper bound]                           \label{prop:upper}
-For every $V$ with $\kappa(V)>0$,
-\[
- \sup_{r:\Phi(V,r)\neq\varnothing}\rad(\Phi(V,r))
- \leq \frac{J_d\delta}{\kappa(V)}.
-\]
+For every $V$ with $\kappa(V)>0$, \[ \sup_{r:\Phi(V,r)\neq\varnothing}\rad(\Phi(V,r)) \leq \frac{J_d\delta}{\kappa(V)}. \]
 \end{proposition}
 
 \begin{proof}
-Take $x,y\in\Phi(V,r)$ and put $u=(x-y)/\|x-y\|_2$.  Some $v_i$
-satisfies $|\ip{u}{v_i}|\geq\kappa(V)$.  Feasibility gives
-$|\ip{x-y}{v_i}|\leq2\delta$, hence
-$\|x-y\|_2\leq2\delta/\kappa(V)$.  Jung's theorem
-\citep{jung1901kleinste,gruber2007convex} states
-\[
- \rad(K)\leq\sqrt{\frac{d}{2(d+1)}}\diam(K).
-\]
-Substitution proves the claim.
+Take $x,y\in\Phi(V,r)$ and put $u=(x-y)/\|x-y\|_2$.  Some $v_i$ satisfies $|\ip{u}{v_i}|\geq\kappa(V)$.  Feasibility gives $|\ip{x-y}{v_i}|\leq2\delta$, hence $\|x-y\|_2\leq2\delta/\kappa(V)$.  Jung's theorem \citep{jung1901kleinste,gruber2007convex} states \[ \rad(K)\leq\sqrt{\frac{d}{2(d+1)}}\diam(K). \] Substitution proves the claim.
 \end{proof}
 
-We next isolate the ambiguity construction used in both lower bounds.  For a
-finite set $K$, write
-$\width_K(v)=\max_{x\in K}\ip{v}{x}-\min_{x\in K}\ip{v}{x}$.
+We next isolate the ambiguity construction used in both lower bounds.  For a finite set $K$, write $\width_K(v)=\max_{x\in K}\ip{v}{x}-\min_{x\in K}\ip{v}{x}$.
 
 \begin{lemma}[Rotated-simplex transcript]                           \label{lem:simplex}
-Let $V\subset\Sph^{d-1}$ and let $\Delta$ be a regular $d$-simplex of side
-$2\delta$.  Suppose a rotation $R$ and $m\in(0,1]$ satisfy
-\[
- |\ip{v}{Re}|\leq m
- \quad\text{for every }v\in V
- \text{ and every unit edge direction }e\text{ of }\Delta.
-\]
-Then the worst-case error of the design $V$ is at least $J_d\delta/m$.
+Let $V\subset\Sph^{d-1}$ and let $\Delta$ be a regular $d$-simplex of side $2\delta$.  Suppose a rotation $R$ and $m\in(0,1]$ satisfy \[ |\ip{v}{Re}|\leq m \quad\text{for every }v\in V \text{ and every unit edge direction }e\text{ of }\Delta. \] Then the worst-case error of the design $V$ is at least $J_d\delta/m$.
 \end{lemma}
 
 \begin{proof}
-Let $K=m^{-1}R\Delta$.  A directional width of a polytope is attained by a
-pair of vertices.  Since every edge of $\Delta$ has length $2\delta$, the
-hypothesis gives $\width_K(v)\leq2\delta$ for every $v\in V$.  Return
-\[
- r_v=\tfrac12\big(\max_{x\in K}\ip{v}{x}
-                  +\min_{x\in K}\ip{v}{x}\big).
-\]
-Every vertex of $K$ is consistent with every answer.  The Chebyshev radius of
-these vertices is the circumradius $J_d\delta/m$.  Therefore some vertex is at
-least that far from the design's output.  Because $V$ is fixed before the game,
-the adversary can choose this vertex as $x^\star$ at the outset and return the
-displayed common transcript.
+Let $K=m^{-1}R\Delta$.  A directional width of a polytope is attained by a pair of vertices.  Since every edge of $\Delta$ has length $2\delta$, the hypothesis gives $\width_K(v)\leq2\delta$ for every $v\in V$.  Return \[ r_v=\tfrac12\big(\max_{x\in K}\ip{v}{x} +\min_{x\in K}\ip{v}{x}\big). \] Every vertex of $K$ is consistent with every answer.  The Chebyshev radius of these vertices is the circumradius $J_d\delta/m$.  Therefore some vertex is at least that far from the design's output.  Because $V$ is fixed before the game, the adversary can choose this vertex as $x^\star$ at the outset and return the displayed common transcript.
 \end{proof}
 
-Lemma \ref{lem:simplex} captures why noncentral information fibers matter.
-The zero-answer fiber is centrally symmetric and yields only a two-point lower
-bound.  The least favorable fiber here contains a regular simplex.  This is
-also why general factor-two adaptivity bounds in optimal recovery do not settle
-the excess rate.
+Lemma \ref{lem:simplex} captures why noncentral information fibers matter. The zero-answer fiber is centrally symmetric and yields only a two-point lower bound.  The least favorable fiber here contains a regular simplex.  This is also why general factor-two adaptivity bounds in optimal recovery do not settle the excess rate.
 
 \section{Fixed dimension}                                          \label{sec:fixed}
 
-For unit vectors, let
-$\rho(u,v)=\arccos|\ip{u}{v}|$ be projective angular distance.  A projective
-$\eta$-net has a point within distance $\eta$ of every line.  Standard
-volumetric covering estimates give the following facts for fixed $d\geq2$:
+For unit vectors, let $\rho(u,v)=\arccos|\ip{u}{v}|$ be projective angular distance.  A projective $\eta$-net has a point within distance $\eta$ of every line.  Standard volumetric covering estimates give the following facts for fixed $d\geq2$:
 \begin{equation}
  \begin{split}
  &\text{there is a projective $\eta$-net of size at most }
@@ -297,53 +148,19 @@ volumetric covering estimates give the following facts for fixed $d\geq2$:
                                                                \label{eq:caps-fixed}
  \end{split}
 \end{equation}
-where $\mu_d$ is uniform spherical measure.  Appendix
-\ref{app:caps} gives a short proof with explicit integral bounds.
+where $\mu_d$ is uniform spherical measure.  Appendix \ref{app:caps} gives a short proof with explicit integral bounds.
 
 \begin{proof}[Proof of Theorem \ref{thm:fixed}]
-For the upper bound, choose $T$ directions forming a projective net of radius
-$\eta\leq A_dT^{-1/(d-1)}$.  Then
-$\kappa(V)\geq\cos\eta$.  Proposition \ref{prop:upper} and
-$1/\cos\eta=1+\Theta(\eta^2)$ give
-\[
- \OPT^{\na}_d(T,\delta)
- \leq \frac{J_d\delta}{\cos\eta}
- \leq J_d\delta+C_d\delta T^{-2/(d-1)}.
-\]
+For the upper bound, choose $T$ directions forming a projective net of radius $\eta\leq A_dT^{-1/(d-1)}$.  Then $\kappa(V)\geq\cos\eta$.  Proposition \ref{prop:upper} and $1/\cos\eta=1+\Theta(\eta^2)$ give \[ \OPT^{\na}_d(T,\delta) \leq \frac{J_d\delta}{\cos\eta} \leq J_d\delta+C_d\delta T^{-2/(d-1)}. \]
 
-For the lower bound, fix arbitrary queries $V$.  Independently rotate a regular
-simplex $\Delta$.  Each of its $N_d=\binom{d+1}{2}$ unoriented edge directions
-is marginally uniform on projective space.  A union bound and
-Equation \eqref{eq:caps-fixed} show
-\[
- \Pr\big\{\rho(Re,v)<\eta\text{ for some edge }e,v\in V\big\}
- \leq N_dTb_d\eta^{d-1}.
-\]
-Choose $\eta=c'_dT^{-1/(d-1)}$ so that the right side is below one.
-Some rotation then has every edge-query angle at least $\eta$.  Lemma
-\ref{lem:simplex} with $m=\cos\eta$ gives
-\[
- \OPT^{\na}_d(T,\delta)
- \geq\frac{J_d\delta}{\cos\eta}
- \geq J_d\delta+c_d\delta T^{-2/(d-1)}.
-\]
-The Taylor inequalities used above hold after increasing $T_d$ if needed.
+For the lower bound, fix arbitrary queries $V$.  Independently rotate a regular simplex $\Delta$.  Each of its $N_d=\binom{d+1}{2}$ unoriented edge directions is marginally uniform on projective space.  A union bound and Equation \eqref{eq:caps-fixed} show \[ \Pr\big\{\rho(Re,v)<\eta\text{ for some edge }e,v\in V\big\} \leq N_dTb_d\eta^{d-1}. \] Choose $\eta=c'_dT^{-1/(d-1)}$ so that the right side is below one. Some rotation then has every edge-query angle at least $\eta$.  Lemma \ref{lem:simplex} with $m=\cos\eta$ gives \[ \OPT^{\na}_d(T,\delta) \geq\frac{J_d\delta}{\cos\eta} \geq J_d\delta+c_d\delta T^{-2/(d-1)}. \] The Taylor inequalities used above hold after increasing $T_d$ if needed.
 \end{proof}
 
-The exponent has a simple geometric origin.  Covering a $(d-1)$-dimensional
-projective sphere gives angular resolution $T^{-1/(d-1)}$.  Both the secant
-loss in the upper bound and the safe expansion of the hidden simplex are
-quadratic in that angle.
+The exponent has a simple geometric origin.  Covering a $(d-1)$-dimensional projective sphere gives angular resolution $T^{-1/(d-1)}$.  Both the secant loss in the upper bound and the safe expansion of the hidden simplex are quadratic in that angle.
 
 \section{The exponential-budget phase curve}                       \label{sec:phase}
 
-The high-dimensional result uses a classical spherical-cap exponent.  If
-$U$ is uniform on $\Sph^{d-1}$ and $m\in(0,1)$ is fixed, define
-\[
- p_d(m)=\Pr\{\ip{U}{e_1}\geq m\},\qquad
- I(m)=-\tfrac12\log(1-m^2).
-\]
-Since $U_1^2$ has a $\operatorname{Beta}(1/2,(d-1)/2)$ distribution,
+The high-dimensional result uses a classical spherical-cap exponent.  If $U$ is uniform on $\Sph^{d-1}$ and $m\in(0,1)$ is fixed, define \[ p_d(m)=\Pr\{\ip{U}{e_1}\geq m\},\qquad I(m)=-\tfrac12\log(1-m^2). \] Since $U_1^2$ has a $\operatorname{Beta}(1/2,(d-1)/2)$ distribution,
 \begin{equation}
  \lim_{d\to\infty}\frac1d\log p_d(m)
  =\tfrac12\log(1-m^2)=-I(m).                    \label{eq:cap-ldp}
@@ -351,156 +168,51 @@ Since $U_1^2$ has a $\operatorname{Beta}(1/2,(d-1)/2)$ distribution,
 The upper bound also needs the matching covering exponent.
 
 \begin{lemma}[Spherical covering exponent]                          \label{lem:cover-exp}
-For fixed $m\in(0,1)$, $\Sph^{d-1}$ can be covered by
-$\exp(dI(m)+o(d))$ one-sided caps
-$\{u:\ip{u}{v}\geq m\}$.
+For fixed $m\in(0,1)$, $\Sph^{d-1}$ can be covered by $\exp(dI(m)+o(d))$ one-sided caps $\{u:\ip{u}{v}\geq m\}$.
 \end{lemma}
 
 \begin{proof}
-The cap has normalized area $p_d(m)$.  The spherical covering theorem of
-\citet{boroczky2003covering}, sharpened by \citet{dumer2007covering}, gives a
-cover of density at most $O(d\log d)$ for every acute cap.  Thus the number of
-caps is at most $O(d\log d)/p_d(m)$.  Equation \eqref{eq:cap-ldp} proves the
-claim.  This exponent is also the classical asymptotic inradius law for
-few-vertex polytopes \citep{barany1988approximation,barany2005note}.
+The cap has normalized area $p_d(m)$.  The spherical covering theorem of \citet{boroczky2003covering}, sharpened by \citet{dumer2007covering}, gives a cover of density at most $O(d\log d)$ for every acute cap.  Thus the number of caps is at most $O(d\log d)/p_d(m)$.  Equation \eqref{eq:cap-ldp} proves the claim.  This exponent is also the classical asymptotic inradius law for few-vertex polytopes \citep{barany1988approximation,barany2005note}.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:phase}]
-Let
-\[
- m_\alpha=\sqrt{1-e^{-2\alpha}},
- \qquad I(m_\alpha)=\alpha.
-\]
-For any fixed $m<m_\alpha$, Lemma \ref{lem:cover-exp} supplies at most $T$
-query directions for all sufficiently large $d$.  These one-sided caps cover
-the sphere, so $\kappa(V)\geq m$.  Proposition \ref{prop:upper} yields
-\[
- \limsup_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta}
- \leq\frac{\sqrt2}{m}.
-\]
-Letting $m\uparrow m_\alpha$ gives the desired upper limit.
+Let \[ m_\alpha=\sqrt{1-e^{-2\alpha}}, \qquad I(m_\alpha)=\alpha. \] For any fixed $m<m_\alpha$, Lemma \ref{lem:cover-exp} supplies at most $T$ query directions for all sufficiently large $d$.  These one-sided caps cover the sphere, so $\kappa(V)\geq m$.  Proposition \ref{prop:upper} yields \[ \limsup_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta} \leq\frac{\sqrt2}{m}. \] Letting $m\uparrow m_\alpha$ gives the desired upper limit.
 
-For the converse, fix arbitrary $T$ queries and choose a uniform random
-rotation of a regular simplex.  For any fixed $m>m_\alpha$, a union bound over
-$N_d=\binom{d+1}{2}$ edges and $T$ queries gives
-\[
- \Pr\big\{|\ip{Re}{v_i}|>m\text{ for some }e,i\big\}
- \leq 2N_dT p_d(m)
- =\exp\{d(\alpha-I(m))+o(d)\}\longrightarrow0.
-\]
-Hence a rotation with all correlations at most $m$ exists.  Lemma
-\ref{lem:simplex} gives
-\[
- \liminf_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta}
- \geq\frac{\sqrt2}{m}.
-\]
-Letting $m\downarrow m_\alpha$ matches the upper limit.
+For the converse, fix arbitrary $T$ queries and choose a uniform random rotation of a regular simplex.  For any fixed $m>m_\alpha$, a union bound over $N_d=\binom{d+1}{2}$ edges and $T$ queries gives \[ \Pr\big\{|\ip{Re}{v_i}|>m\text{ for some }e,i\big\} \leq 2N_dT p_d(m) =\exp\{d(\alpha-I(m))+o(d)\}\longrightarrow0. \] Hence a rotation with all correlations at most $m$ exists.  Lemma \ref{lem:simplex} gives \[ \liminf_{d\to\infty}\frac{\OPT^{\na}_d(T,\delta)}{\delta} \geq\frac{\sqrt2}{m}. \] Letting $m\downarrow m_\alpha$ matches the upper limit.
 \end{proof}
 
-The argument uses classical optimal spherical coverage on the upper side and a
-different object on the lower side.  The lower witness is not the uncovered
-line itself.  It is one rotation of all simplex edges that simultaneously avoids
-the queries.  The polynomial number $N_d$ of edges disappears in the exponential
-scale, which is why the two exponents match exactly.
+The argument uses classical optimal spherical coverage on the upper side and a different object on the lower side.  The lower witness is not the uncovered line itself.  It is one rotation of all simplex edges that simultaneously avoids the queries.  The polynomial number $N_d$ of edges disappears in the exponential scale, which is why the two exponents match exactly.
 
 \section{A hierarchy from adaptive batches}                         \label{sec:batch}
 
-The fixed-dimensional proof also clarifies how interaction enters.  We use one
-result from the adaptive analysis of \citet{filmus2026optimal}.  In the
-normalization $\delta=1/2$, if a feasible region has radius at least $J_d/2$ and
-diameter at most $1+\beta$, their robust Jung theorem localizes its radius-
-witnessing core to a $C_d\beta$ neighborhood of a regular unit simplex.  Querying
-all $q_d$ edge directions of that simplex reduces the neighborhood radius from
-$\gamma$ to at most $A_d\gamma^2$.  All $q_d$ directions depend only on the
-previous feasible region, so they form one batch.
+The fixed-dimensional proof also clarifies how interaction enters.  We use one result from the adaptive analysis of \citet{filmus2026optimal}.  In the normalization $\delta=1/2$, if a feasible region has radius at least $J_d/2$ and diameter at most $1+\beta$, their robust Jung theorem localizes its radius- witnessing core to a $C_d\beta$ neighborhood of a regular unit simplex.  Querying all $q_d$ edge directions of that simplex reduces the neighborhood radius from $\gamma$ to at most $A_d\gamma^2$.  All $q_d$ directions depend only on the previous feasible region, so they form one batch.
 
 \begin{proof}[Proof of Theorem \ref{thm:batch}]
-Use $M$ directions in the first batch to form a projective net of radius
-$O_d(M^{-1/(d-1)})$.  Proposition \ref{prop:upper}, before applying Jung's
-radius factor, gives feasible diameter
-\[
- 2\delta\big(1+O_d(M^{-2/(d-1)})\big).
-\]
-After scaling to $\delta=1/2$, robust Jung localization gives a simplex
-neighborhood of radius
-$\gamma_0=O_d(M^{-2/(d-1)})$.  For $b=1,\ldots,B-1$, spend one batch of
-$q_d$ queries on the current simplex edges.  The refinement recurrence is
-$\gamma_b\leq A_d\gamma_{b-1}^2$.  For fixed $d,B$ and sufficiently large
-$M$, iteration yields
-\[
- \gamma_{B-1}\leq C_{d,B}M^{-2^B/(d-1)}.
-\]
-The feasible radius is at most the regular-simplex radius plus
-$\gamma_{B-1}$ in normalized units.  Rescaling proves the theorem.
+Use $M$ directions in the first batch to form a projective net of radius $O_d(M^{-1/(d-1)})$.  Proposition \ref{prop:upper}, before applying Jung's radius factor, gives feasible diameter \[ 2\delta\big(1+O_d(M^{-2/(d-1)})\big). \] After scaling to $\delta=1/2$, robust Jung localization gives a simplex neighborhood of radius $\gamma_0=O_d(M^{-2/(d-1)})$.  For $b=1,\ldots,B-1$, spend one batch of $q_d$ queries on the current simplex edges.  The refinement recurrence is $\gamma_b\leq A_d\gamma_{b-1}^2$.  For fixed $d,B$ and sufficiently large $M$, iteration yields \[ \gamma_{B-1}\leq C_{d,B}M^{-2^B/(d-1)}. \] The feasible radius is at most the regular-simplex radius plus $\gamma_{B-1}$ in normalized units.  Rescaling proves the theorem.
 \end{proof}
 
-For fixed $B$, Theorem \ref{thm:batch} implies query complexity
-$O_{d,B}(\epsilon^{-(d-1)/2^B})+(B-1)q_d$ for excess
-$\epsilon\delta$.  The case $B=1$ matches Theorem \ref{thm:fixed}.  Once the
-number of batches grows, the repeated squaring transitions to the adaptive
-$\log\log(1/\epsilon)$ law.  A matching minimax characterization for every
-intermediate batch budget remains open.
+For fixed $B$, Theorem \ref{thm:batch} implies query complexity $O_{d,B}(\epsilon^{-(d-1)/2^B})+(B-1)q_d$ for excess $\epsilon\delta$.  The case $B=1$ matches Theorem \ref{thm:fixed}.  Once the number of batches grows, the repeated squaring transitions to the adaptive $\log\log(1/\epsilon)$ law.  A matching minimax characterization for every intermediate batch budget remains open.
 
 \section{Related work and limitations}                              \label{sec:related}
 
 \paragraph{Linear reconstruction and adaptive sensing.}
-Our direct predecessor is \citet{filmus2026optimal}, which introduced this
-continuous linear-query game and proved the adaptive results summarized above.
-It builds on approximate distance reconstruction
-\citep{moran2025reconstruction}.  Adaptive sensing more commonly assumes a
-structured signal and stochastic noise
-\citep{haupt2009adaptive,ariascatro2013fundamental}.  Those goals and noise
-models differ from worst-case localization of an unrestricted point.
+Our direct predecessor is \citet{filmus2026optimal}, which introduced this continuous linear-query game and proved the adaptive results summarized above. It builds on approximate distance reconstruction \citep{moran2025reconstruction}.  Adaptive sensing more commonly assumes a structured signal and stochastic noise \citep{haupt2009adaptive,ariascatro2013fundamental}.  Those goals and noise models differ from worst-case localization of an unrestricted point.
 
 \paragraph{Optimal recovery and bounded-error estimation.}
-Optimal recovery studies algorithms from exact or inaccurate information
-\citep{traub1988information,osipenko2019generalized}.  Recent sharp results
-construct optimal linear recovery maps for prescribed operators under
-hyperellipsoidal model classes and $\ell_1$ or $\ell_2$ data uncertainty
-\citep{foucart2024radius}.  Set-membership and Chebyshev-center estimators
-likewise recover from intersections of deterministic constraint sets
-\citep{eldar2008minimax}.  This literature motivates our feasible-radius
-formulation.  It typically fixes the information operator or imposes a bounded
-model class.  The present question optimizes unit directions, compares answer-
-dependent and oblivious designs, and asks for the excess above a nonzero Jung
-limit.
+Optimal recovery studies algorithms from exact or inaccurate information \citep{traub1988information,osipenko2019generalized}.  Recent sharp results construct optimal linear recovery maps for prescribed operators under hyperellipsoidal model classes and $\ell_1$ or $\ell_2$ data uncertainty \citep{foucart2024radius}.  Set-membership and Chebyshev-center estimators likewise recover from intersections of deterministic constraint sets \citep{eldar2008minimax}.  This literature motivates our feasible-radius formulation.  It typically fixes the information operator or imposes a bounded model class.  The present question optimizes unit directions, compares answer- dependent and oblivious designs, and asks for the excess above a nonzero Jung limit.
 
 \paragraph{Spherical covering.}
-The projective-net estimates behind our upper bounds are classical.  Sharp
-covering densities and equivalent inradius estimates appear in
-\citet{boroczky2003covering,dumer2007covering,barany1988approximation}.  We use
-their covering exponent rather than claim a new polytope approximation result.
-The reconstruction lower bound is different: it must place an expanded simplex
-inside one information fiber, which requires simultaneous avoidance by every
-edge direction.
+The projective-net estimates behind our upper bounds are classical.  Sharp covering densities and equivalent inradius estimates appear in \citet{boroczky2003covering,dumer2007covering,barany1988approximation}.  We use their covering exponent rather than claim a new polytope approximation result. The reconstruction lower bound is different: it must place an expanded simplex inside one information fiber, which requires simultaneous avoidance by every edge direction.
 
 \paragraph{Limitations.}
-We follow the predecessor's deterministic minimax convention.  The results also
-cover public randomization when the realized design is visible before the secret
-is selected.  Private randomized nonadaptive designs under alternative move
-orders require a separate formulation.  Our estimator is information-theoretic
-because it outputs an exact Chebyshev center.  Computing that center is generally
-nontrivial, although standard convex optimization gives approximations.  Finally,
-Theorem \ref{thm:batch} is an upper interpolation, not a matching batch lower
-bound.
+We follow the predecessor's deterministic minimax convention.  The results also cover public randomization when the realized design is visible before the secret is selected.  Private randomized nonadaptive designs under alternative move orders require a separate formulation.  Our estimator is information-theoretic because it outputs an exact Chebyshev center.  Computing that center is generally nontrivial, although standard convex optimization gives approximations.  Finally, Theorem \ref{thm:batch} is an upper interpolation, not a matching batch lower bound.
 
 \section{Conclusion}
 
-Nonadaptive noisy linear reconstruction has the same infinite-query Jung limit
-as adaptive reconstruction, but it approaches that limit at a fundamentally
-different speed.  A spherical net gives the optimal polynomial exponent, while
-a rotated regular simplex supplies the matching ambiguity.  In high dimension,
-the same construction converts the classical cap exponent into an exact
-exponential-budget minimax curve.  These results resolve the nonadaptive problem
-posed by \citet{filmus2026optimal} and isolate the geometric value of interaction:
-adaptive batches repeatedly square the residual simplex uncertainty.
+Nonadaptive noisy linear reconstruction has the same infinite-query Jung limit as adaptive reconstruction, but it approaches that limit at a fundamentally different speed.  A spherical net gives the optimal polynomial exponent, while a rotated regular simplex supplies the matching ambiguity.  In high dimension, the same construction converts the classical cap exponent into an exact exponential-budget minimax curve.  These results resolve the nonadaptive problem posed by \citet{filmus2026optimal} and isolate the geometric value of interaction: adaptive batches repeatedly square the residual simplex uncertainty.
 
 \section*{Reproducibility statement}
-All results are proved analytically.  The supplement includes a deterministic
-diagnostic that constructs regular simplices, searches rotations, verifies the
-common-transcript inequalities, and checks finite-dimensional convergence of the
-spherical-cap exponent.  These computations are sanity checks and are not used
-as proof steps.
+All results are proved analytically.  The supplement includes a deterministic diagnostic that constructs regular simplices, searches rotations, verifies the common-transcript inequalities, and checks finite-dimensional convergence of the spherical-cap exponent.  These computations are sanity checks and are not used as proof steps.
 
 \bibliography{references}
 \bibliographystyle{iclr2027_conference}
