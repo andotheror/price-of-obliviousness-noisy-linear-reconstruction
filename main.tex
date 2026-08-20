@@ -172,7 +172,7 @@ For fixed $m\in(0,1)$, $\Sph^{d-1}$ can be covered by $\exp(dI(m)+o(d))$ one-sid
 \end{lemma}
 
 \begin{proof}
-The cap has normalized area $p_d(m)$.  The spherical covering theorem of \citet{boroczky2003covering}, sharpened by \citet{dumer2007covering}, gives a cover of density at most $O(d\log d)$ for every acute cap.  Thus the number of caps is at most $O(d\log d)/p_d(m)$.  Equation \eqref{eq:cap-ldp} proves the claim.  This exponent is also the classical asymptotic inradius law for few-vertex polytopes \citep{barany1988approximation,barany2005note}.
+The cap has normalized area $p_d(m)$.  The spherical covering theorem of \citet{boroczky2003covering}, sharpened by \citet{dumer2007covering}, gives a cover of density at most $O(d\log d)$ for every acute cap.  Thus the number of caps is at most $O(d\log d)/p_d(m)$.  Equation \eqref{eq:cap-ldp} proves the claim.  This exponent is also the classical asymptotic inradius law for few-vertex polytopes \citep{barany1988approximation}.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:phase}]
@@ -202,7 +202,7 @@ Our direct predecessor is \citet{filmus2026optimal}, which introduced this conti
 Optimal recovery studies algorithms from exact or inaccurate information \citep{traub1988information,osipenko2019generalized}.  Recent sharp results construct optimal linear recovery maps for prescribed operators under hyperellipsoidal model classes and $\ell_1$ or $\ell_2$ data uncertainty \citep{foucart2024radius}.  Set-membership and Chebyshev-center estimators likewise recover from intersections of deterministic constraint sets \citep{eldar2008minimax}.  This literature motivates our feasible-radius formulation.  It typically fixes the information operator or imposes a bounded model class.  The present question optimizes unit directions, compares answer- dependent and oblivious designs, and asks for the excess above a nonzero Jung limit.
 
 \paragraph{Spherical covering.}
-The projective-net estimates behind our upper bounds are classical.  Sharp covering densities and equivalent inradius estimates appear in \citet{boroczky2003covering,dumer2007covering,barany1988approximation}.  We use their covering exponent rather than claim a new polytope approximation result. The reconstruction lower bound is different: it must place an expanded simplex inside one information fiber, which requires simultaneous avoidance by every edge direction.
+The projective-net estimates behind our upper bounds are classical.  Sharp covering densities and equivalent inradius estimates appear in \citet{boroczky2003covering,dumer2007covering,barany1988approximation,barany2005note}.  We use their covering exponent rather than claim a new polytope approximation result. The reconstruction lower bound is different: it must place an expanded simplex inside one information fiber, which requires simultaneous avoidance by every edge direction.
 
 \paragraph{Limitations.}
 We follow the predecessor's deterministic minimax convention.  The results also cover public randomization when the realized design is visible before the secret is selected.  Private randomized nonadaptive designs under alternative move orders require a separate formulation.  Our estimator is information-theoretic because it outputs an exact Chebyshev center.  Computing that center is generally nontrivial, although standard convex optimization gives approximations.  Finally, Theorem \ref{thm:batch} is an upper interpolation, not a matching batch lower bound.
