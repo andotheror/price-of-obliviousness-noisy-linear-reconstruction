@@ -25,7 +25,7 @@ exponent, interpolating between the two convergence laws.
 
 ## Keywords
 
-price, obliviousness, noisy, linear, reconstruction, unknown, point, queried, through
+nonadaptive queries, adversarial noise, linear queries, adaptivity gap, Jung's theorem, query complexity
 
 ## Files
 
